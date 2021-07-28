@@ -3,7 +3,7 @@ import { useGlobalContext } from './context'
 const product = ({ id, img, title, price, amount }) => {
   const { takeawayproducts, increaseproducts, decreaseproducts} = useGlobalContext()
   return (
-    <article className='cart-item'>
+    <article style="color:blue; background-color:aqua;text-align:center;">
       <img src={img} alt={title} />
       <div>
         <h4>{title}</h4>
