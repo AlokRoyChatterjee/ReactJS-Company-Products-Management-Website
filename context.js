@@ -1,5 +1,5 @@
 import React, { useState, useContext, useReducer, useEffect } from 'react'
-import product from './data'
+import product from './productinfo'
 import reducer from './reducer'
 const url = 'https://course-api.com/react-useReducer-cart-project'
 const AppContext = React.createContext()
