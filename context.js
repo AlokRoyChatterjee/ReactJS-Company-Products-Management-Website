@@ -12,7 +12,7 @@ const initialState = {
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const increase = (id) => {
+  const increaseproducts = (id) => {
     dispatch({ type: 'increaseproducts', productid: id })
   }
   const fetchData = async () => {
@@ -24,17 +24,17 @@ const AppProvider = ({ children }) => {
    useEffect(() => {
     fetchData()
   }, [])
-  const decrease = (id) => {
+  const decreaseproducts = (id) => {
     dispatch({ type: 'decreaseproducts', productid: id })
   }
-  const remove = (id) => {
+  const takeawayproduccts = (id) => {
     dispatch({ type: 'takeawayproducts', productid: id })
   }
   return (
     <AppContext.Provider
       value={{
         ...state,
-        removeproducts,
+        takeawayproducts,
         increaseproducts,
         decreaseproducts,
       }}
