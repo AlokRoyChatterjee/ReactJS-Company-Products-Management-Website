@@ -3,8 +3,8 @@ import product from './product'
 import { useGlobalContext } from './context'
 
 const Productcomponent = () => {
-  const { cart, total} = useGlobalContext()
-  if (cart.length === 0) {
+  const { products, total} = useGlobalContext()
+  if (products.length === 0) {
     return (
       <section>
         <header>
@@ -15,24 +15,19 @@ const Productcomponent = () => {
     )
   }
   return (
-    <section className='cart'>
       <header>
         <h2>Products</h2>
       </header>
       <div>
-        {cart.map((product) => {
+        {products.map((product) => {
           return <product key={product.id} {...product} />
         })}
       </div>
-      <footer>
-        <hr />
-        <div className='cart-total'>
+        <div>
           <h4>
             Overall amount <span>${total}</span>
           </h4>
         </div>
-      </footer>
-    </section>
   )
 }
 
