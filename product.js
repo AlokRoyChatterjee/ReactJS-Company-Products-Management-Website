@@ -3,7 +3,7 @@ import { useGlobalContext } from './context'
 const product = ({ id, img, title, price, amount }) => {
   const { takeawayproducts, increaseproducts, decreaseproducts} = useGlobalContext()
   return (
-    <article style="color:blue; background-color:aqua;text-align:center;">
+    <div style="color:blue; background-color:aqua;text-align:center;">
       <img src={img} alt={title} />
       <div>
         <h4>{title}</h4>
@@ -13,10 +13,19 @@ const product = ({ id, img, title, price, amount }) => {
         </button>
       </div>
       <div>
-      <p>{amount}</p>
-       
+        <button onClick={() => decreasproducts(id)}>
+          decrease product amount
+        </button>
       </div>
-    </article>
+      <div>
+        <h4>{title}</h4>
+        <h4 >${price}</h4>
+        <button onClick={() => increaseproducts(id)}>
+          increase product amount
+        </button>
+      </div>
+     <p>{amount}</p>
+    </div>
   )
 }
 
