@@ -1,75 +1,44 @@
 const reducer = (state, action) => {
-  if (action.type === 'CLEAR_CART') {
-    return { ...state, cart: [] }
-  }
-  if (action.type === 'REMOVE') {
+  if (action.type === 'takeawayproduct') {
     return {
-      ...state,
-      cart: state.cart.filter((cartItem) => cartItem.id !== action.payload),
+      ...state,cart: state.cart.filter((cartItem) => cartItem.id !== action.productid),
     }
   }
-  if (action.type === 'INCREASE') {
-    let tempCart = state.cart.map((cartItem) => {
-      if (cartItem.id === action.payload) {
-        return { ...cartItem, amount: cartItem.amount + 1 }
+  if (action.type === 'increaseproducts') {
+    let shoppingproducts = state.cart.map((product) => {
+      if (product.id === action.productid) {
+        return { ...product, amount: product.amount + 1 }
       }
-      return cartItem
+      return product
     })
     return { ...state, cart: tempCart }
   }
-  if (action.type === 'DECREASE') {
-    let tempCart = state.cart
-      .map((cartItem) => {
-        if (cartItem.id === action.payload) {
+  if (action.type === 'decreaseproducts') {
+    let shoppingproducts = state.cart
+      .map((product) => {
+        if (product.id === action.productid) {
           return { ...cartItem, amount: cartItem.amount - 1 }
         }
-        return cartItem
-      })
-      .filter((cartItem) => cartItem.amount !== 0)
-    return { ...state, cart: tempCart }
+        return product
+      }).filter((product) => product.amount !== 0)
+    return { ...state, cart: shoppingproducts }
   }
-  if (action.type === 'GET_TOTALS') {
+  if (action.type === 'overallproductsamount') {
     let { total, amount } = state.cart.reduce(
-      (cartTotal, cartItem) => {
-        const { price, amount } = cartItem
+      (shoppingamount, product) => {
+        const { price, amount } = product
         const itemTotal = price * amount
-
-        cartTotal.total += itemTotal
-        cartTotal.amount += amount
-        return cartTotal
+        shoppingamount.total += itemTotal
+        shoppingamount.amount += amount
+        return shoppingamount
       },
       {
         total: 0,
         amount: 0,
       }
     )
-    total = parseFloat(total.toFixed(2))
-
     return { ...state, total, amount }
   }
-  if (action.type === 'LOADING') {
-    return { ...state, loading: true }
-  }
-  if (action.type === 'DISPLAY_ITEMS') {
-    return { ...state, cart: action.payload, loading: false }
-  }
-  if (action.type === 'TOGGLE_AMOUNT') {
-    let tempCart = state.cart
-      .map((cartItem) => {
-        if (cartItem.id === action.payload.id) {
-          if (action.payload.type === 'inc') {
-            return { ...cartItem, amount: cartItem.amount + 1 }
-          }
-          if (action.payload.type === 'dec') {
-            return { ...cartItem, amount: cartItem.amount - 1 }
-          }
-        }
-        return cartItem
-      })
-      .filter((cartItem) => cartItem.amount !== 0)
-    return { ...state, cart: tempCart }
-  }
-  throw new Error('no matching action type')
 }
 
 export default reducer
